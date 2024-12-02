@@ -22,21 +22,15 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Cache Maven dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-      - name: List directory contents
-        run: ls -la
+      - name: Verify directory structure
+        run: |
+          echo "Current working directory:"
+          pwd
+          echo "Directory contents:"
+          ls -R
 
       - name: Install dependencies
         run: mvn install
-        working-directory: ./relative-path-to-pom
 
       - name: Run Selenium tests
         run: mvn test
-        working-directory: ./relative-path-to-pom
