@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'  # Ensure you are using the correct JDK version
+          distribution: 'adoptopenjdk'  # Specify the JDK distribution (e.g., adoptopenjdk, zulu, etc.)
 
       - name: Install dependencies
         run: |
@@ -34,4 +35,3 @@ jobs:
           mvn test -Dtest=Complete_Registration_Login_Seller
         env:
           MAVEN_OPTS: "-Xmx2g"  # Optional, if you need more memory for tests
-
