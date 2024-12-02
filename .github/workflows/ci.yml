@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'  # Ensure you are using the correct JDK version
-          distribution: 'adoptopenjdk'  # Specify the JDK distribution (e.g., adoptopenjdk, zulu, etc.)
+          distribution: 'temurin'  # Updated distribution to 'temurin' for AdoptOpenJDK (now Eclipse Adoptium)
 
       - name: Install dependencies
         run: |
