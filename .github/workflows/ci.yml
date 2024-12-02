@@ -24,12 +24,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # Install maven dependencies (if using maven)
-          mvn clean install -DskipTests=true
+          cd SeleniumFramework  # Change directory to where the pom.xml file is located
+          mvn clean install -DskipTests=true  # Install dependencies
 
       - name: Run specific Selenium tests
         run: |
-          # Run your specific tests using Maven, replace with your test files
+          cd SeleniumFramework  # Ensure you're in the correct directory with pom.xml
           mvn test -Dtest=Complete_Registartion_login_Form
           mvn test -Dtest=Complete_Registration_login_Both
           mvn test -Dtest=Complete_Registration_Login_Seller
