@@ -18,7 +18,16 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-
+            - name: SeleniumCICD
+  # You may pin to the exact commit or the version.
+  # uses: nakajiss/DockerSeleniumAction@e6ea7ae921226473af620875a8853bad0750a033
+  uses: nakajiss/DockerSeleniumAction@v1.3.7
+  with:
+    # python test plan to execute
+    test-plan-path: 
+    # Optional arguments.
+    args: # optional
+          
       - name: Install Maven dependencies
         run: mvn install
 
