@@ -1,0 +1,37 @@
+name: Selenium Test Suite
+
+on:
+  push:
+    branches:
+      - main  # Runs when you push to the main branch
+  pull_request:
+    branches:
+      - main  # Runs for PRs made to the main branch
+
+jobs:
+  selenium-tests:
+    runs-on: ubuntu-latest  # You can use different runners like windows or mac
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2  # Checkout your code from GitHub
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'  # Ensure you are using the correct JDK version
+
+      - name: Install dependencies
+        run: |
+          # Install maven dependencies (if using maven)
+          mvn clean install -DskipTests=true
+
+      - name: Run specific Selenium tests
+        run: |
+          # Run your specific tests using Maven, replace with your test files
+          mvn test -Dtest=Complete_Registartion_login_Form
+          mvn test -Dtest=Complete_Registration_login_Both
+          mvn test -Dtest=Complete_Registration_Login_Seller
+        env:
+          MAVEN_OPTS: "-Xmx2g"  # Optional, if you need more memory for tests
+
