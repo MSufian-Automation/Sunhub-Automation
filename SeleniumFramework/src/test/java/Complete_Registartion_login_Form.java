@@ -12,7 +12,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 
 public class Complete_Registartion_login_Form {
     public static void main(String[] args) {
@@ -86,8 +88,8 @@ public class Complete_Registartion_login_Form {
 
             // Wait until the first email (with the text 'QAS Sunhub') is clickable
             WebElement qasSunhubEmail = wait.until(ExpectedConditions.elementToBeClickable(
-            		By.xpath("//tr[td[contains(translate(text(), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 'QA Sunhub')]]//td[@onclick]"
-            				)));
+            		By.xpath("//tr[td[contains(text(), 'QA Sunhub')]]//td[@onclick]")));
+
             System.out.println("Clicked on the 'QAS Sunhub' email.");
             qasSunhubEmail.click();
 
@@ -99,6 +101,24 @@ public class Complete_Registartion_login_Form {
             verifyEmailLink1.click();
             System.out.println("Account Created Successfully...");
 
+         // Switch to the new tab
+            Set<String> allTabs = driver.getWindowHandles();
+            Iterator<String> iterator = allTabs.iterator();
+            String mainTab = iterator.next();
+            String newTab = iterator.next();
+            driver.switchTo().window(newTab);
+
+         // Verify the content of the new tab
+            WebElement verifySuccessMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+            		By.xpath("//*[@id=\"root\"]/div/div[2]/div/div/div[1]")));
+            if (verifySuccessMessage.getText().contains("Your email is successfully verified. You can now login!")) {
+                System.out.println("Email verification successful! Message: " + verifySuccessMessage.getText());
+            } else {
+                System.out.println("Email verification failed.");
+                driver.close();
+                driver.switchTo().window(mainTab);
+                return;
+            }
             // Now, let's navigate to the login page
             driver.get("https://qas.sunhub.com/login");
 
@@ -122,7 +142,17 @@ public class Complete_Registartion_login_Form {
             // Click the login button
             WebElement loginButton = driver.findElement(By.xpath("//button[@type='submit']"));
             loginButton.click();
-            System.out.println("Login button clicked.");
+            
+            WebElement dashboardMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+            		By.cssSelector("#root > div > div.main > div.position-relative.row > div > div > div > div > h1")));
+            if (dashboardMessage.getText().contains("Find the solar equipment you need to get the job done.")) {
+                System.out.println("Login successful! Message: " + dashboardMessage.getText());
+                driver.quit();
+            
+            } else {
+                System.out.println("Login failed.");
+                
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,7 +161,7 @@ public class Complete_Registartion_login_Form {
 
     // Method to generate a unique email address
     private static String generateUniqueEmail() {
-        long timestamp = System.currentTimeMillis();
+        long timestamp = (short) System.currentTimeMillis();
         return "automation." + timestamp + "@mailinator.com";
     }
 

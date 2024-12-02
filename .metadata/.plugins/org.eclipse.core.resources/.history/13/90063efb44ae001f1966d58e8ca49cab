@@ -1,0 +1,79 @@
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration;
+
+public class Complete_Registartion_login_Form {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		        // Setup WebDriver
+		String projectPath = System.getProperty("user.dir");
+        System.out.println("Project Path: " + projectPath);
+        
+		System.setProperty("webdriver.gecko.driver", projectPath+"//drivers/geckodriver/geckodriver");
+		WebDriver driver =  new ChromeDriver();
+
+		 try {
+	            // Navigate to the registration page
+	            driver.get("https://qas.sunhub.com/register");
+	            
+		            // Wait for the Google login button to appear and click it
+		            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));  // Update to use Duration
+		            WebElement googleBtn = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".google-btn")));
+		            googleBtn.click();
+
+		            // Wait for email input and enter Google credentials
+		            WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("identifierId")));
+
+		            // Type the email into the email input field
+		            emailField.sendKeys("your"muhammad.sufian@sunhub.com");
+		            driver.findElement(By.id("identifierNext")).click();
+
+		            // Wait for password input and enter Google password
+		            WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("Passwd")));
+		            passwordField.sendKeys("your-google-password");
+		            driver.findElement(By.id("passwordNext")).click();
+
+		            // Wait for redirection after successful Google login
+		            wait.until(ExpectedConditions.urlContains("your-expected-url"));
+
+		            // Print the current URL
+		            System.out.println("Current URL after Google login: " + driver.getCurrentUrl());
+
+		            // Now, click the Facebook button
+		            WebElement facebookBtn = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".facebook.metro button")));
+		            facebookBtn.click();
+
+		            // Wait for Facebook login to load and enter credentials
+		            WebElement fbEmailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email")));
+		            fbEmailField.sendKeys("your-facebook-email@example.com");
+		            WebElement fbPasswordField = driver.findElement(By.id("pass"));
+		            fbPasswordField.sendKeys("your-facebook-password");
+
+		            // Click the login button
+		            driver.findElement(By.name("login")).click();
+
+		            // Wait for redirection after Facebook login
+		            wait.until(ExpectedConditions.urlContains("your-expected-url"));
+
+		            // Print the current URL after Facebook login
+		            System.out.println("Current URL after Facebook login: " + driver.getCurrentUrl());
+
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        } finally {
+		            // Close the driver
+		            driver.quit();
+		        }
+		    }
+
+		
+	}
+
+

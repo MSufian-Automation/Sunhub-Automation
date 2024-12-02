@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="WebsiteLoadingTest" project="SeleniumFramework" tests="22" started="3" failures="0" errors="1" ignored="0">
+  <testsuite name="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true">
+    <testcase name="testFacebookButtonClickable" classname="Sunhub_Website.Tests.WebsiteLoadingTest" time="48.381"/>
+    <testcase name="testEmptyEmailAndPassword" classname="Sunhub_Website.Tests.WebsiteLoadingTest" time="10.819"/>
+    <testcase name="testLoginWithLongEmail" classname="Sunhub_Website.Tests.WebsiteLoadingTest" time="38.146">
+      <error>org.openqa.selenium.remote.UnreachableBrowserException: Error communicating with the remote browser. It may have died.
+Build info: version: '4.27.0', revision: 'd6e718d134'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '23.0.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [862826c7b87fdf46da538dd8a1788262, sendKeysToElement [value, id]]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 131.0.6778.86, chrome: {chromedriverVersion: 131.0.6778.85 (3d81e41b6f3a..., userDataDir: C:\Users\DANIYA~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:52018}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:52018/devtoo..., se:cdpVersion: 131.0.6778.86, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (862826c7b87fdf46da538dd8a1788262)] -&gt; id: email]
+Session ID: 862826c7b87fdf46da538dd8a1788262&#13;
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:572)&#13;
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)&#13;
+	at org.openqa.selenium.remote.RemoteWebElement.sendKeys(RemoteWebElement.java:110)&#13;
+	at Sunhub_Website.Pages.LoginForm.enterEmail(LoginForm.java:32)&#13;
+	at Sunhub_Website.Tests.WebsiteLoadingTest.testLoginWithLongEmail(WebsiteLoadingTest.java:133)&#13;
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)&#13;
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)&#13;
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)&#13;
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)&#13;
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)&#13;
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)&#13;
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)&#13;
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)&#13;
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)&#13;
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)&#13;
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)&#13;
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)&#13;
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)&#13;
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)&#13;
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)&#13;
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)&#13;
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)&#13;
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)&#13;
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)&#13;
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)&#13;
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:93)&#13;
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:40)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:530)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:758)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:453)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:211)&#13;
+Caused by: java.io.UncheckedIOException: java.io.IOException: HTTP/1.1 header parser received no bytes&#13;
+	at org.openqa.selenium.remote.http.jdk.JdkHttpClient.execute0(JdkHttpClient.java:496)&#13;
+	at org.openqa.selenium.remote.http.AddSeleniumUserAgent.lambda$apply$0(AddSeleniumUserAgent.java:42)&#13;
+	at org.openqa.selenium.remote.http.Filter.lambda$andFinally$1(Filter.java:55)&#13;
+	at org.openqa.selenium.remote.http.jdk.JdkHttpClient.lambda$executeAsync$1(JdkHttpClient.java:383)&#13;
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)&#13;
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)&#13;
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)&#13;
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)&#13;
+	at java.base/java.lang.Thread.run(Thread.java:1575)&#13;
+Caused by: java.io.IOException: HTTP/1.1 header parser received no bytes&#13;
+	at java.net.http/jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:971)&#13;
+	at java.net.http/jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:133)&#13;
+	at org.openqa.selenium.remote.http.jdk.JdkHttpClient.execute0(JdkHttpClient.java:455)&#13;
+	... 8 more&#13;
+Caused by: java.io.IOException: HTTP/1.1 header parser received no bytes&#13;
+	at java.net.http/jdk.internal.net.http.common.Utils.wrapWithExtraDetail(Utils.java:440)&#13;
+	at java.net.http/jdk.internal.net.http.Http1Response$HeadersReader.onReadError(Http1Response.java:590)&#13;
+	at java.net.http/jdk.internal.net.http.Http1AsyncReceiver.checkForErrors(Http1AsyncReceiver.java:302)&#13;
+	at java.net.http/jdk.internal.net.http.Http1AsyncReceiver.flush(Http1AsyncReceiver.java:268)&#13;
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler$LockingRestartableTask.run(SequentialScheduler.java:182)&#13;
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler$CompleteRestartableTask.run(SequentialScheduler.java:149)&#13;
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler$SchedulableTask.run(SequentialScheduler.java:207)&#13;
+	... 3 more&#13;
+Caused by: java.net.SocketException: Connection reset&#13;
+	at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:403)&#13;
+	at java.base/sun.nio.ch.SocketChannelImpl.implRead(SocketChannelImpl.java:435)&#13;
+	at java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:493)&#13;
+	at java.net.http/jdk.internal.net.http.SocketTube.readAvailable(SocketTube.java:1178)&#13;
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.read(SocketTube.java:841)&#13;
+	at java.net.http/jdk.internal.net.http.SocketTube$SocketFlowTask.run(SocketTube.java:181)&#13;
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler$SchedulableTask.run(SequentialScheduler.java:207)&#13;
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:280)&#13;
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:233)&#13;
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.signalReadable(SocketTube.java:782)&#13;
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$ReadEvent.signalEvent(SocketTube.java:965)&#13;
+	at java.net.http/jdk.internal.net.http.SocketTube$SocketFlowEvent.handle(SocketTube.java:253)&#13;
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.handleEvent(HttpClientImpl.java:1478)&#13;
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.lambda$run$3(HttpClientImpl.java:1423)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)&#13;
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1423)&#13;
+&#13;
+</error>
+    </testcase>
+    <testcase name="testEmptyEmail" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testForgotPasswordLink" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testFacebookLoginButton" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testGoogleLoginButton" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testValidLogin" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testForgotPassword" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testEmailWithSpaces" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testGoogleButtonText" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testInvalidPassword" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testSuccessfulLoginAndRedirect" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testEmailWithoutAtSymbol" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testEmptyPassword" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testSocialLoginButtonsAreVisible" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testLoginWithSpecialCharsInEmail" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testFacebookButtonText" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testGoogleButtonClickable" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testLoginWithLongPassword" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testInvalidEmail" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+    <testcase name="testRegisterNowLink" classname="Sunhub_Website.Tests.WebsiteLoadingTest" incomplete="true"/>
+  </testsuite>
+</testrun>

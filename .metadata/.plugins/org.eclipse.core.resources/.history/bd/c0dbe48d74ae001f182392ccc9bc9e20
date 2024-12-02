@@ -1,0 +1,190 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.Random;
+import java.util.Set;
+
+public class Complete_Registartion_login_Form {
+    public static void main(String[] args) {
+        String projectPath = System.getProperty("user.dir");
+        System.out.println("Project Path: " + projectPath);
+
+        System.setProperty("webdriver.gecko.driver", projectPath + "//drivers/geckodriver/geckodriver");
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            // Generate a unique email and password
+            String email = generateUniqueEmail();
+            String password = generateUniquePassword();
+
+            // Save the email and password to a text file
+            saveCredentialsToFile(email, password);
+
+            // Navigate to the registration page
+            driver.get("https://qas.sunhub.com/register");
+
+            // Wait for the form to load
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+
+            // Select the 'Buyer' radio button
+            WebElement buyerRadio = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"role\"]/label[1]")));
+            buyerRadio.click();
+
+            // Fill in the Full Name field
+            WebElement fullNameInput = driver.findElement(By.id("firstname"));
+            fullNameInput.sendKeys("Automation Ghost HEHE");
+
+            // Fill in the Email Address field
+            WebElement emailInput = driver.findElement(By.id("email"));
+            emailInput.sendKeys(email);
+
+            // Fill in the Password field
+            WebElement passwordInput = driver.findElement(By.id("password"));
+            passwordInput.sendKeys(password);
+
+            // Fill in the Confirm Password field
+            WebElement confirmPasswordInput = driver.findElement(By.id("password_confirmation"));
+            confirmPasswordInput.sendKeys(password);
+
+            // Fill in the Phone field (including the +1 prefix)
+            WebElement phoneInput = driver.findElement(By.id("phone"));
+            phoneInput.sendKeys("1234567890");
+
+            // Check the agreement checkbox
+            WebElement agreementCheckbox = driver.findElement(By.id("agreement"));
+            if (!agreementCheckbox.isSelected()) {
+                agreementCheckbox.click();
+            }
+
+            // Submit the form
+            WebElement submitButton = driver.findElement(By.xpath("//button[@type='submit']"));
+            submitButton.click();
+
+            // Wait for the success message to appear
+            WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".thankyou-message h4")));
+
+            // Verify the success message content
+            if (successMessage.getText().contains("Thanks For Choosing Us!")) {
+                System.out.println("Form submitted successfully! Success message displayed: " + successMessage.getText());
+            } else {
+                System.out.println("Success message not found.");
+            }
+
+            // Now, let's open Mailinator to check the email
+            String mailinatorInboxUrl = "https://www.mailinator.com/v4/public/inboxes.jsp?to=" + email.split("@")[0];
+            driver.get(mailinatorInboxUrl);
+
+
+            // Wait until the first email (with the text 'QAS Sunhub') is clickable
+            WebElement qasSunhubEmail = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//tr[td[contains(text(), 'QA Sunhub')]]//td[@onclick]")));
+            System.out.println("Clicked on the 'QAS Sunhub' email.");
+            qasSunhubEmail.click();
+            
+            // Wait for the "Verify Email Address" link to be clickable and click it
+            WebElement verifyEmailLink = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//*[@id=\"pills-links-tab\"]")));
+            verifyEmailLink.click();
+            
+            WebElement verifyEmailLink1 = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//a[contains(@href, '/v1/client/email/verify/')]")));
+            verifyEmailLink1.click();
+
+            WebElement toastMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@role='alert' and contains(@class, 'Toastify__toast-body')]")));
+
+            // Verify the toast message text
+            String actualToastText = toastMessage.getText();
+            String expectedToastText = "Your email is successfully verified. You can now login!";
+
+            // Print the message to the console
+            System.out.println("Toast message displayed: " + actualToastText);
+
+            if (actualToastText.equals(expectedToastText)) {
+                System.out.println("Toast message verified: " + actualToastText);
+            } else {
+                System.out.println("Unexpected toast message: " + actualToastText);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close the driver
+//            driver.quit();
+        }
+    }
+
+	// Method to generate a unique email address
+    private static String generateUniqueEmail() {
+        // Generate a unique email by adding a timestamp
+        long timestamp = System.currentTimeMillis();
+        return "automation." + timestamp + "@mailinator.com";
+    }
+
+    // Method to generate a unique password
+    private static String generateUniquePassword() {
+        // Generate a random password
+        String passwordChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+        Random random = new Random();
+        StringBuilder password = new StringBuilder(12);  // Create a password of length 12
+
+        for (int i = 0; i < 12; i++) {
+            password.append(passwordChars.charAt(random.nextInt(passwordChars.length())));
+        }
+
+        return password.toString();
+    }
+
+    // Method to save credentials (email and password) to a text file
+    private static void saveCredentialsToFile(String email, String password) {
+        try {
+            File file = new File("credentials.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            // Write email and password to the file
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+                writer.write("Email: " + email);
+                writer.newLine();
+                writer.write("Password: " + password);
+                writer.newLine();
+                writer.newLine();
+            }
+
+            System.out.println("Credentials saved to credentials.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Method to save verification URL to a text file
+    private static void saveVerificationUrlToFile(String url) {
+        try {
+            File file = new File("verification_urls.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            // Write the verification URL to the file
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+                writer.write("Verification URL: " + url);
+                writer.newLine();
+                writer.newLine();
+            }
+
+            System.out.println("Verification URL saved to verification_urls.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
