@@ -1,4 +1,4 @@
-name: Selenium Java CI
+name: Selenium Java Tests
 
 on:
   push:
@@ -13,24 +13,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      # Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up JDK 17
+      # Set up Java environment
+      - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Verify directory structure
-        run: |
-          echo "Current working directory:"
-          pwd
-          echo "Directory contents:"
-          ls -R
+      # Cache Maven dependencies
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2
 
+      # Install dependencies
       - name: Install dependencies
         run: mvn install
 
-      - name: Run Selenium tests
+      # Run tests
+      - name: Run TestNG Tests
         run: mvn test
