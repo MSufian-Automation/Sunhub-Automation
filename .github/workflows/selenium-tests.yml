@@ -1,42 +1,26 @@
-name: Selenium Java Tests
+name: Run Selenium Test
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  build-and-test:
+  selenium-test:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout code
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up Java environment
-      - name: Setup Java
+      - name: Set up Java
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      # Cache Maven dependencies
-      - name: Cache Maven dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-m2
-
-      # Install dependencies
-      - name: Install dependencies
+      - name: Install Maven dependencies
         run: mvn install
 
-      # Run tests
-      - name: Run TestNG Tests
-        run: mvn test
+      - name: Run Selenium Test
+        run: mvn test -Dtest=Complete_Registartion_login_Form
