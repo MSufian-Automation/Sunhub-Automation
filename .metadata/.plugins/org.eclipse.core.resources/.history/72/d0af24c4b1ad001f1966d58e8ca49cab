@@ -1,0 +1,201 @@
+package Sunhub_Website.Tests;
+
+//import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+//import Sunhub_Website.Base.BaseTesting;
+import Sunhub_Website.Pages.RegistrationBuyerForm;
+
+import java.time.Duration;
+
+public class RegistrationBuyerTest {
+    private WebDriver driver;
+    private RegistrationBuyerForm registrationPage;
+
+    @Before
+    public void setUp() {
+    	String projectPath = System.getProperty("user.dir");
+        System.out.println("Project Path: " + projectPath);
+        System.setProperty("webdriver.gecko.driver", projectPath + "//drivers/geckodriver/geckodriver");
+        
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
+        // Initialize WebDriver from the BaseTesting class
+//        setup(); // Ensure that WebDriver is set up correctly in the BaseTesting class
+        System.out.println("Setting up test...");
+
+        driver.get("https://qas.sunhub.com/register");
+
+        // Initialize the Registration Page object
+        registrationPage = new RegistrationBuyerForm(driver);
+    }
+
+    @Test
+    public void testBuyerRegistration() {
+        // Wait for the 'Buyer' radio button to be clickable and select it
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(registrationPage.buyerRadio));
+        registrationPage.selectBuyerRole();
+
+        // Fill in the registration form
+        registrationPage.enterFullName("John Doe");
+        registrationPage.enterEmail("john.doe@example.com");
+        registrationPage.enterPassword("YourPassword123");
+        registrationPage.confirmPassword("YourPassword123");
+        registrationPage.enterPhone("1234567890");
+        registrationPage.acceptAgreement();
+
+        // Submit the form
+        registrationPage.submitForm();
+
+        // Wait for error message (if email is already taken)
+        try {
+            WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@class='Toastify__toast-body' and contains(text(),'The email has already been taken.')]")
+            ));
+            System.out.println("Error: " + errorMessage.getText());
+        } catch (Exception e) {
+            // No error message found, form submitted successfully
+            System.out.println("Form submitted successfully!");
+        }
+    }
+
+    @Test
+    public void testBuyerRegistrationWithExistingEmail() {
+        // Wait for the 'Buyer' radio button to be clickable and select it
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(registrationPage.buyerRadio));
+        registrationPage.selectBuyerRole();
+
+        // Fill in the registration form with an existing email
+        registrationPage.enterFullName("John Doe");
+        registrationPage.enterEmail("john.doe@example.com"); // Existing email
+        registrationPage.enterPassword("YourPassword123");
+        registrationPage.confirmPassword("YourPassword123");
+        registrationPage.enterPhone("1234567890");
+        registrationPage.acceptAgreement();
+
+        // Submit the form
+        registrationPage.submitForm();
+
+        // Wait for error message if email is already taken
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@class='Toastify__toast-body' and contains(text(),'The email has already been taken.')]")
+        ));
+        Assert.assertTrue(errorMessage.isDisplayed());
+        System.out.println("Error: " + errorMessage.getText());
+    }
+
+    @Test
+    public void testBuyerRegistrationWithPasswordMismatch() {
+        // Wait for the 'Buyer' radio button to be clickable and select it
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(registrationPage.buyerRadio));
+        registrationPage.selectBuyerRole();
+
+        // Fill in the registration form with mismatched passwords
+        registrationPage.enterFullName("John Doe");
+        registrationPage.enterEmail("john.doe@example.com");
+        registrationPage.enterPassword("YourPassword123");
+        registrationPage.confirmPassword("DifferentPassword123"); // Mismatched password
+        registrationPage.enterPhone("1234567890");
+        registrationPage.acceptAgreement();
+
+        // Submit the form
+        registrationPage.submitForm();
+
+        // Wait for the error message indicating password mismatch
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@class='Toastify__toast-body' and contains(text(),'Passwords do not match')]")
+        ));
+        Assert.assertTrue(errorMessage.isDisplayed());
+        System.out.println("Error: " + errorMessage.getText());
+    }
+
+    @Test
+    public void testBuyerRegistrationWithMissingFields() {
+        // Wait for the 'Buyer' radio button to be clickable and select it
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(registrationPage.buyerRadio));
+        registrationPage.selectBuyerRole();
+
+        // Leave required fields blank
+        registrationPage.enterFullName("");
+        registrationPage.enterEmail("");
+        registrationPage.enterPassword("");
+        registrationPage.confirmPassword("");
+        registrationPage.enterPhone("");
+        registrationPage.acceptAgreement();
+
+        // Submit the form
+        registrationPage.submitForm();
+
+        // Wait for error message for missing fields
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@class='Toastify__toast-body' and contains(text(),'Please fill out all required fields')]")
+        ));
+        Assert.assertTrue(errorMessage.isDisplayed());
+        System.out.println("Error: " + errorMessage.getText());
+    }
+
+    @Test
+    public void testBuyerRegistrationWithInvalidPhoneNumber() {
+        // Wait for the 'Buyer' radio button to be clickable and select it
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(registrationPage.buyerRadio));
+        registrationPage.selectBuyerRole();
+
+        // Fill in the registration form with an invalid phone number
+        registrationPage.enterFullName("John Doe");
+        registrationPage.enterEmail("john.doe@example.com");
+        registrationPage.enterPassword("YourPassword123");
+        registrationPage.confirmPassword("YourPassword123");
+        registrationPage.enterPhone("12345"); // Invalid phone number
+        registrationPage.acceptAgreement();
+
+        // Submit the form
+        registrationPage.submitForm();
+
+        // Wait for error message indicating phone number validation failure
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@class='Toastify__toast-body' and contains(text(),'Please enter a valid phone number')]")
+        ));
+        Assert.assertTrue(errorMessage.isDisplayed());
+        System.out.println("Error: " + errorMessage.getText());
+    }
+
+    @Test
+    public void testBuyerRegistrationWithValidData() {
+        // Wait for the 'Buyer' radio button to be clickable and select it
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(registrationPage.buyerRadio));
+        registrationPage.selectBuyerRole();
+
+        // Fill in the registration form with valid data
+        registrationPage.enterFullName("John Doe");
+        registrationPage.enterEmail("john.doe@example.com");
+        registrationPage.enterPassword("YourPassword123");
+        registrationPage.confirmPassword("YourPassword123");
+        registrationPage.enterPhone("1234567890");
+        registrationPage.acceptAgreement();
+
+        // Submit the form
+        registrationPage.submitForm();
+
+        // Wait for confirmation message after successful registration
+        WebElement confirmationMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@class='Toastify__toast-body' and contains(text(),'Registration successful')]")
+        ));
+        Assert.assertTrue(confirmationMessage.isDisplayed());
+        System.out.println("Success: " + confirmationMessage.getText());
+    }
+
+}

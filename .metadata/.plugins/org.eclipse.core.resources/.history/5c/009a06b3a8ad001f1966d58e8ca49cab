@@ -1,0 +1,39 @@
+package Sunhub_Website.Tests;
+
+import Sunhub_Website.Base.BaseTesting;
+import Sunhub_Website.Pages.LoginForm;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class WebsiteLoadingTest extends BaseTesting {
+    private LoginForm loginPage;
+
+    @Before
+    public void setUp() {
+        setup(); // Initialize WebDriver
+        driver.get("https://qas.sunhub.com/login");
+        loginPage = new LoginForm(driver);
+    }
+
+    @Test
+    public void testLogin() {
+        loginPage.enterEmail("sufian987456@gmail.com");
+        loginPage.enterPassword("Sufian@123");
+        loginPage.clickLoginButton();
+        System.out.println("Login button clicked successfully!");
+    }
+    
+    @Test
+    public void testLogin1() {
+        loginPage.enterEmail("sufian987456@gmail.com");
+        loginPage.enterPassword("Sufian@1122");
+        loginPage.clickLoginButton();
+        System.out.println("Failed Login!");
+    }
+
+    @After
+    public void tearDown() {
+        super.tearDown(); // Quit WebDriver
+    }
+}

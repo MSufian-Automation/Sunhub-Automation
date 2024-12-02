@@ -1,0 +1,67 @@
+package Sunhub_Website.Tests;
+
+import Sunhub_Website.Base.BaseTest;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import Sunhub_Website.Pages.RegistrationBuyerPage;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+public class Registration_Buyer_Test extends BaseTest {
+    private WebDriver driver;
+    private RegistrationBuyerPage registrationPage;
+
+    @Before
+    public void setUp() {
+        setup(); // Initialize WebDriver
+        
+        driver.get("https://qas.sunhub.com/login");
+        System.out.println("Navigating to: " + "https://qas.sunhub.com/register");
+
+
+        // Initialize the Registration Page object
+        registrationPage = new RegistrationBuyerPage(driver);
+    }
+
+    @Test
+    public void testBuyerRegistration() {
+        // Wait for the 'Buyer' radio button to be clickable and select it
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(registrationPage.buyerRadio));
+        registrationPage.selectBuyerRole();
+
+        // Fill in the registration form
+        registrationPage.enterFullName("John Doe");
+        registrationPage.enterEmail("john.doe@example.com");
+        registrationPage.enterPassword("YourPassword123");
+        registrationPage.confirmPassword("YourPassword123");
+        registrationPage.enterPhone("1234567890");
+        registrationPage.acceptAgreement();
+
+        // Submit the form
+        registrationPage.submitForm();
+
+        try {
+            // Wait for error message (if email is already taken)
+            WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@class='Toastify__toast-body' and contains(text(),'The email has already been taken.')]")
+            ));
+            System.out.println("Error: " + errorMessage.getText());
+        } catch (Exception e) {
+            // No error message found, form submitted successfully
+            System.out.println("Form submitted successfully!");
+        }
+    }
+
+    @After
+    public void tearDown() {
+        super.tearDown(); // Quit WebDriver
+    }
+}

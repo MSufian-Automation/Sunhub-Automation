@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="true"/>
+	<list key="replacehistory">
+		<item value="selectBothRole"/>
+		<item value="bothRadio"/>
+	</list>
+	<list key="searchhistory">
+		<item value="selectSellerRole"/>
+		<item value="sellerRadio"/>
+	</list>
+</section>

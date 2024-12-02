@@ -1,0 +1,52 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import java.time.Duration;
+
+public class ClickSignIn {
+    public static void main(String[] args) {
+        // Set the path for ChromeDriver executable
+        String projectPath = System.getProperty("user.dir");
+        System.setProperty("webdriver.chrome.driver", projectPath + "/drivers/chromedriver/chromedriver");
+
+        // Initialize the WebDriver
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            // Navigate to the website
+            driver.get("https://your-website-url.com");
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+            // Locate the dropdown menu container
+            WebElement dropdownContainer = driver.findElement(By.cssSelector(".user-auth-dropdown"));
+
+            // Hover over the dropdown or click to reveal the menu
+            Actions actions = new Actions(driver);
+            actions.moveToElement(dropdownContainer).perform();
+
+            // Wait briefly for the dropdown menu to appear (if necessary)
+            Thread.sleep(2000);
+
+            // Locate the "Sign in" link inside the dropdown and click it
+            WebElement signInLink = driver.findElement(By.xpath("//a[@class='dropdown-item' and @href='/login']"));
+            signInLink.click();
+
+            // Validate navigation to the login page (optional)
+            String expectedUrl = "https://your-website-url.com/login";
+            String actualUrl = driver.getCurrentUrl();
+            if (actualUrl.equals(expectedUrl)) {
+                System.out.println("Successfully navigated to the login page!");
+            } else {
+                System.out.println("Failed to navigate to the login page. Current URL: " + actualUrl);
+            }
+        } catch (Exception e) {
+            System.err.println("An error occurred: " + e.getMessage());
+        } finally {
+            // Close the browser
+            driver.quit();
+        }
+    }
+}

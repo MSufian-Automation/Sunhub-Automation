@@ -1,0 +1,29 @@
+package Sunhub_Website.Base;
+
+import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class BaseTesting {
+    protected WebDriver driver;
+
+    public void setup() {
+        String projectPath = System.getProperty("user.dir");
+        System.out.println("Project Path: " + projectPath);
+
+        // Set the correct WebDriver for Chrome
+        System.setProperty("webdriver.chrome.driver", projectPath + "//drivers/chromedriver/chromedriver");
+        
+        // Initialize the ChromeDriver (for Chrome browser)
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
+
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}

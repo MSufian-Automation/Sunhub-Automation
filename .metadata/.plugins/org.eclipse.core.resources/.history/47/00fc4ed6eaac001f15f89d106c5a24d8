@@ -1,0 +1,19 @@
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class BrowserTest_1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String projectPath = System.getProperty("user.div");
+		System.out.println("projectPath : "+projectPath);
+		
+		System.setProperty("webdriver.gecko.driver", projectPath+"//drivers/geckodriver/geckodriver");
+		WebDriver driver =  new ChromeDriver();
+		
+		driver.get("https://qas.sunhub.com/");
+
+	}
+
+}

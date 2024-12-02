@@ -1,0 +1,59 @@
+package Sunhub_Website.Tests;
+
+import Sunhub_Website.Pages.RegistrationPage;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+//import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import java.time.Duration;
+
+public class RegistrationTest {
+
+    private WebDriver driver;
+    private RegistrationPage registrationPage;
+
+    @BeforeMethod
+    public void setUp() {
+        // Set up WebDriver
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        // Navigate to the registration page
+        driver.get("https://qas.sunhub.com/registration");
+        registrationPage = new RegistrationPage(driver);
+    }
+
+    @Test
+    public void testUserRegistration() {
+        // Step 1: Select user role
+        registrationPage.selectRole("buyer");
+
+        // Step 2: Fill in registration form
+        registrationPage.enterFullName("John Doe");
+        registrationPage.enterEmail("johndoe@example.com");
+        registrationPage.enterPassword("Password123!");
+        registrationPage.confirmPassword("Password123!");
+        registrationPage.enterPhone("1234567890");
+
+        // Step 3: Accept terms and submit the form
+        registrationPage.acceptTerms();
+        registrationPage.clickCreateAccount();
+
+        // Step 4: Verify successful registration
+//        String confirmationMessage = registrationPage.getConfirmationMessage(); // Assuming this method exists
+//        Assert.assertEquals(confirmationMessage, "Registration Successful!", "Registration failed or message mismatched.");
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        // Close the browser
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}

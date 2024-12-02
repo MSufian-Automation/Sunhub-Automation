@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="org.testng.annotations.Test"/>
+    <fullyQualifiedTypeName name="Sunhub_Website.Pages.RegistrationBuyerPage"/>
+    <fullyQualifiedTypeName name="Sunhub_Website.Base.BaseTest"/>
+    <fullyQualifiedTypeName name="Sunhub_Website.Pages.RegistrationBuyerForm"/>
+    <fullyQualifiedTypeName name="Sunhub_Website.Pages.LoginPage"/>
+    <fullyQualifiedTypeName name="Sunhub_Website.Pages.LoginForm"/>
+    <fullyQualifiedTypeName name="Sunhub_Website.Base.BaseTesting"/>
+</qualifiedTypeNameHistroy>

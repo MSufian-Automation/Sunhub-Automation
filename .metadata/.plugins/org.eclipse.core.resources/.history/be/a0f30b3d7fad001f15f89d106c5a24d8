@@ -1,0 +1,96 @@
+package Sunhub_Website.Pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class RegistrationPage {
+
+    WebDriver driver;
+
+    // Constructor to initialize WebDriver and elements
+    public RegistrationPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    // Locators
+    @FindBy(id = "role")
+    private WebElement roleSelector;
+
+    @FindBy(xpath = "//label[@class='ant-radio-button-wrapper'][1]") // Buyer
+    private WebElement buyerRadioButton;
+
+    @FindBy(xpath = "//label[@class='ant-radio-button-wrapper'][2]") // Seller
+    private WebElement sellerRadioButton;
+
+    @FindBy(xpath = "//label[@class='ant-radio-button-wrapper'][3]") // Both
+    private WebElement bothRadioButton;
+
+    @FindBy(id = "firstname")
+    private WebElement fullNameInput;
+
+    @FindBy(id = "email")
+    private WebElement emailInput;
+
+    @FindBy(id = "password")
+    private WebElement passwordInput;
+
+    @FindBy(id = "password_confirmation")
+    private WebElement confirmPasswordInput;
+
+    @FindBy(id = "phone")
+    private WebElement phoneInput;
+
+    @FindBy(id = "agreement")
+    private WebElement termsCheckbox;
+
+    @FindBy(xpath = "//button[@type='submit']")
+    private WebElement createAccountButton;
+
+    // Methods to interact with elements
+    public void selectRole(String role) {
+        switch (role.toLowerCase()) {
+            case "buyer":
+                buyerRadioButton.click();
+                break;
+            case "seller":
+                sellerRadioButton.click();
+                break;
+            case "both":
+                bothRadioButton.click();
+                break;
+        }
+    }
+
+    public void enterFullName(String fullName) {
+        fullNameInput.sendKeys(fullName);
+    }
+
+    public void enterEmail(String email) {
+        emailInput.sendKeys(email);
+    }
+
+    public void enterPassword(String password) {
+        passwordInput.sendKeys(password);
+    }
+
+    public void confirmPassword(String password) {
+        confirmPasswordInput.sendKeys(password);
+    }
+
+    public void enterPhone(String phone) {
+        phoneInput.sendKeys(phone);
+    }
+
+    public void acceptTerms() {
+        if (!termsCheckbox.isSelected()) {
+            termsCheckbox.click();
+        }
+    }
+
+    public void clickCreateAccount() {
+        createAccountButton.click();
+    }
+}

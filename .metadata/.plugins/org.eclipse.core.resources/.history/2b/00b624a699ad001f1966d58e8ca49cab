@@ -1,0 +1,73 @@
+package Sunhub_Website.Tests;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class RegistrationSellerForm {
+
+	public static void main(String[] args) {
+		String projectPath = System.getProperty("user.dir");
+        System.out.println("Project Path: " + projectPath);
+        
+		System.setProperty("webdriver.gecko.driver", projectPath+"//drivers/geckodriver/geckodriver");
+		WebDriver driver =  new ChromeDriver();
+		
+
+        try {
+            // Navigate to the registration page
+        	driver.get("https://qas.sunhub.com/register"); // Replace with the actual URL
+
+            // Select the "Seller" role
+            WebElement sellerRadioButton = driver.findElement(By.xpath("//*[@id=\"role\"]/label[2]"));
+            sellerRadioButton.click();
+
+            // Fill in the Full Name
+            WebElement fullNameField = driver.findElement(By.id("firstname"));
+            fullNameField.sendKeys("John Doe");
+
+            // Fill in the Company Name (optional)
+            WebElement companyNameField = driver.findElement(By.id("companyname"));
+            companyNameField.sendKeys("Doe Enterprises");
+
+            // Fill in the Email Address
+            WebElement emailField = driver.findElement(By.id("email"));
+            emailField.sendKeys("johndoe@example.com");
+
+            // Fill in the Password
+            WebElement passwordField = driver.findElement(By.id("password"));
+            passwordField.sendKeys("StrongPassword123");
+
+            // Fill in the Confirm Password
+            WebElement confirmPasswordField = driver.findElement(By.id("password_confirmation"));
+            confirmPasswordField.sendKeys("StrongPassword123");
+
+            // Fill in the Phone Number
+            WebElement phoneField = driver.findElement(By.id("phone"));
+            phoneField.sendKeys("1234567890");
+
+            // Agree to Terms & Conditions
+            WebElement agreementCheckbox = driver.findElement(By.id("agreement"));
+            agreementCheckbox.click();
+
+            // Submit the form
+            WebElement createAccountButton = driver.findElement(By.xpath("//button[@type='submit' and contains(@class, 'btn-primary')]"));
+            createAccountButton.click();
+
+            // Validate success
+            Thread.sleep(3000); // Wait for potential success message
+            if (driver.getPageSource().contains("Account successfully created")) {
+                System.out.println("Registration successful!");
+            } else {
+                System.out.println("Registration failed.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close the browser
+            driver.quit();
+        }
+	}
+}
+

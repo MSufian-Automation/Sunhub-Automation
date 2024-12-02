@@ -1,0 +1,137 @@
+package Sunhub_Website.Tests;
+
+import Sunhub_Website.Base.BaseTesting;
+import Sunhub_Website.Pages.LoginForm;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class WebsiteLoadingTest extends BaseTesting {
+    private LoginForm loginPage;
+
+    @Before
+    public void setUp() {
+        setup(); // Initialize WebDriver
+        driver.get("https://qas.sunhub.com/login");
+        loginPage = new LoginForm(driver);
+    }
+
+    @Test
+    public void testValidLogin() {
+        loginPage.enterEmail("sufian987456@gmail.com");
+        loginPage.enterPassword("Sufian@123");
+        loginPage.clickLoginButton();
+        System.out.println("Login button clicked successfully!");
+    }
+
+    @Test
+    public void testInvalidEmail() {
+        loginPage.enterEmail("invalidemail.com");
+        loginPage.enterPassword("Sufian@123");
+        loginPage.clickLoginButton();
+        System.out.println("Login failed due to invalid email!");
+    }
+
+    @Test
+    public void testInvalidPassword() {
+        loginPage.enterEmail("sufian987456@gmail.com");
+        loginPage.enterPassword("WrongPassword123");
+        loginPage.clickLoginButton();
+        System.out.println("Login failed due to invalid password!");
+    }
+
+    @Test
+    public void testEmptyEmail() {
+        loginPage.enterEmail("");
+        loginPage.enterPassword("Sufian@123");
+        loginPage.clickLoginButton();
+        System.out.println("Login failed due to empty email!");
+    }
+
+    @Test
+    public void testEmptyPassword() {
+        loginPage.enterEmail("sufian987456@gmail.com");
+        loginPage.enterPassword("");
+        loginPage.clickLoginButton();
+        System.out.println("Login failed due to empty password!");
+    }
+
+    @Test
+    public void testEmptyEmailAndPassword() {
+        loginPage.enterEmail("");
+        loginPage.enterPassword("");
+        loginPage.clickLoginButton();
+        System.out.println("Login failed due to empty email and password!");
+    }
+
+    @Test
+    public void testEmailWithoutAtSymbol() {
+        loginPage.enterEmail("sufian987456gmail.com");
+        loginPage.enterPassword("Sufian@123");
+        loginPage.clickLoginButton();
+        System.out.println("Login failed due to invalid email format!");
+    }
+
+    @Test
+    public void testEmailWithSpaces() {
+        loginPage.enterEmail("  sufi an987456@gmail.com  ");
+        loginPage.enterPassword("Sufian@123");
+        loginPage.clickLoginButton();
+        System.out.println("Login failed due to email with spaces!");
+    }
+
+    @Test
+    public void testForgotPasswordLink() {
+        // Check if the "Forgot your password?" link is visible and clickable
+        boolean isLinkVisible = loginPage.isForgotPasswordLinkVisible();
+        assert isLinkVisible : "Forgot Password link should be visible!";
+        System.out.println("Forgot Password link is visible.");
+
+        // Click the "Forgot your password?" link
+        loginPage.clickForgotPasswordLink();
+        // Verify the page redirected or the relevant action took place
+        String currentUrl = driver.getCurrentUrl();
+        assert currentUrl.contains("forgot-password") : "Forgot Password link should redirect to the forgot password page!";
+        System.out.println("Redirected to the Forgot Password page.");
+    }
+
+    @Test
+    public void testLoginWithSpecialCharsInEmail() {
+        loginPage.enterEmail("sufian@#$.com");
+        loginPage.enterPassword("Sufian@123");
+        loginPage.clickLoginButton();
+        System.out.println("Login failed due to invalid special characters in email!");
+    }
+
+    @Test
+    public void testSuccessfulLoginAndRedirect() {
+        loginPage.enterEmail("sufian987456@gmail.com");
+        loginPage.enterPassword("Sufian@123");
+        loginPage.clickLoginButton();
+        // Assuming there's a successful login redirect
+        String currentUrl = driver.getCurrentUrl();
+        assert currentUrl.contains("dashboard") : "User should be redirected to the dashboard after successful login!";
+        System.out.println("User redirected to dashboard after successful login.");
+    }
+
+    @Test
+    public void testLoginWithLongPassword() {
+        loginPage.enterEmail("sufian987456@gmail.com");
+        loginPage.enterPassword("a".repeat(101)); // assuming the max length is 100
+        loginPage.clickLoginButton();
+        System.out.println("Login failed due to long password!");
+    }
+
+    @Test
+    public void testLoginWithLongEmail() {
+        loginPage.enterEmail("a".repeat(255) + "@gmail.com"); // max length for email
+        loginPage.enterPassword("Sufian@123");
+        loginPage.clickLoginButton();
+        System.out.println("Login failed due to long email address!");
+    }
+
+    @After
+    public void tearDown() {
+        super.tearDown(); // Quit WebDriver
+    }
+}

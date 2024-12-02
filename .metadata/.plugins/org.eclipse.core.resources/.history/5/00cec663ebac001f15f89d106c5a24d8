@@ -1,0 +1,56 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class BrowserTest_1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String projectPath = System.getProperty("user.div");
+		System.out.println("projectPath : "+projectPath);
+		
+		System.setProperty("webdriver.gecko.driver", projectPath+"//drivers/geckodriver/geckodriver");
+		WebDriver driver =  new ChromeDriver();
+		
+		
+		
+		try {
+            // Navigate to the website
+			driver.get("https://qas.sunhub.com/");
+            driver.manage().window().maximize();
+
+//             Locate the dropdown container
+            WebElement dropdownContainer = driver.findElement(By.cssSelector(".user-auth-dropdown"));
+
+            // Hover over or click the dropdown to reveal the menu
+            Actions actions = new Actions(driver);
+            actions.moveToElement(dropdownContainer).perform();
+
+            // Wait briefly to ensure the dropdown menu is visible
+            Thread.sleep(2000);
+
+            // Locate and click the "Sign in" link
+            WebElement signInLink = driver.findElement(By.xpath("//a[@class='dropdown-item' and @href='/login']"));
+            signInLink.click();
+
+            // Optional: Validate navigation to the login page
+            String expectedUrl = "https://your-website.com/login";
+            String actualUrl = driver.getCurrentUrl();
+            if (actualUrl.equals(expectedUrl)) {
+                System.out.println("Navigation to login page successful!");
+            } else {
+                System.out.println("Failed to navigate to the login page.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close the browser
+            driver.quit();
+        }
+
+	}
+
+}

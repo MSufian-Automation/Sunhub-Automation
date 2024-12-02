@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Test Suite">
+    <test name="Regression Tests">
+        <classes>
+            <class name="Sunhub_Website.Tests.RegistrationBothTest"/>
+            <class name="Sunhub_Website.Tests.RegistrationBuyerTest"/>
+            <class name="Sunhub_Website.Tests.RegistrationSellerTest"/>
+            <class name="Sunhub_Website.Tests.WebsiteLoadingTest"/>
+        </classes>
+    </test>
+</suite>

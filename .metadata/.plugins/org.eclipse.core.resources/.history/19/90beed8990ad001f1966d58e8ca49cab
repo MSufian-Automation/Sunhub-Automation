@@ -1,0 +1,222 @@
+//package Sunhub_Website.Tests;
+//
+//
+//import org.junit.After;
+//import org.junit.Before;
+//import org.junit.Test;
+//import org.openqa.selenium.By;
+//import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.WebElement;
+//import org.openqa.selenium.support.ui.ExpectedConditions;
+//import org.openqa.selenium.support.ui.WebDriverWait;
+//
+//import Sunhub_Website.Base.BaseTesting;
+//import Sunhub_Website.Pages.RegistrationBuyerForm;
+//
+//import java.time.Duration;
+//
+//
+//public class RegistrationBuyerTest extends BaseTesting {
+//	private WebDriver driver;
+//    private RegistrationBuyerForm registrationPage;
+//    
+//
+//    @Before
+//    public void setUp() {
+//        setup(); // Initialize WebDriver
+//        System.out.println("no URL Found");
+//        
+//        driver.get("https://qas.sunhub.com/");
+//        
+//
+//        // Initialize the Registration Page object
+//        registrationPage = new RegistrationBuyerForm(driver);
+//    }
+//
+//    @Test
+//    public void testBuyerRegistration() {
+//        // Wait for the 'Buyer' radio button to be clickable and select it
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        wait.until(ExpectedConditions.elementToBeClickable(registrationPage.buyerRadio));
+//        registrationPage.selectBuyerRole();
+//
+//        // Fill in the registration form
+//        registrationPage.enterFullName("John Doe");
+//        registrationPage.enterEmail("john.doe@example.com");
+//        registrationPage.enterPassword("YourPassword123");
+//        registrationPage.confirmPassword("YourPassword123");
+//        registrationPage.enterPhone("1234567890");
+//        registrationPage.acceptAgreement();
+//
+//        // Submit the form
+//        registrationPage.submitForm();
+//
+//        try {
+//            // Wait for error message (if email is already taken)
+//            WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+//                By.xpath("//div[@class='Toastify__toast-body' and contains(text(),'The email has already been taken.')]")
+//            ));
+//            System.out.println("Error: " + errorMessage.getText());
+//        } catch (Exception e) {
+//            // No error message found, form submitted successfully
+//            System.out.println("Form submitted successfully!");
+//        }
+//    }
+//
+//    @After
+//    public void tearDown() {
+//        super.tearDown(); // Quit WebDriver
+//    }
+//}
+
+
+
+package Sunhub_Website.Base;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.concurrent.TimeUnit;
+
+public class BaseTesting {
+    protected WebDriver driver;
+
+    // Method to initialize WebDriver
+    public void setup() {
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver"); // Ensure you have the correct path to chromedriver
+        driver = new ChromeDriver(); // Initialize the driver
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // Optional: Set timeouts
+    }
+
+    // Method to close WebDriver after test
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();  // Close the browser
+        }
+    }
+}
+
+package Sunhub_Website.Pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class RegistrationBuyerForm {
+    private WebDriver driver;
+
+    // Locators for registration fields (modify as per actual HTML structure)
+    public WebElement buyerRadio = driver.findElement(By.id("buyerRole"));
+    public WebElement fullNameField = driver.findElement(By.id("fullName"));
+    public WebElement emailField = driver.findElement(By.id("email"));
+    public WebElement passwordField = driver.findElement(By.id("password"));
+    public WebElement confirmPasswordField = driver.findElement(By.id("confirmPassword"));
+    public WebElement phoneField = driver.findElement(By.id("phone"));
+    public WebElement agreementCheckbox = driver.findElement(By.id("agreement"));
+    public WebElement submitButton = driver.findElement(By.id("submitButton"));
+
+    // Constructor to initialize the driver
+    public RegistrationBuyerForm(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    // Methods to interact with the registration form
+    public void selectBuyerRole() {
+        buyerRadio.click();
+    }
+
+    public void enterFullName(String fullName) {
+        fullNameField.sendKeys(fullName);
+    }
+
+    public void enterEmail(String email) {
+        emailField.sendKeys(email);
+    }
+
+    public void enterPassword(String password) {
+        passwordField.sendKeys(password);
+    }
+
+    public void confirmPassword(String password) {
+        confirmPasswordField.sendKeys(password);
+    }
+
+    public void enterPhone(String phone) {
+        phoneField.sendKeys(phone);
+    }
+
+    public void acceptAgreement() {
+        agreementCheckbox.click();
+    }
+
+    public void submitForm() {
+        submitButton.click();
+    }
+}
+
+package Sunhub_Website.Tests;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import Sunhub_Website.Base.BaseTesting;
+import Sunhub_Website.Pages.RegistrationBuyerForm;
+
+import java.time.Duration;
+
+public class RegistrationBuyerTest extends BaseTesting {
+    private WebDriver driver;
+    private RegistrationBuyerForm registrationPage;
+
+    @Before
+    public void setUp() {
+        setup(); // Initialize WebDriver
+        System.out.println("WebDriver initialized.");
+        
+        driver.get("https://qas.sunhub.com/");
+
+        // Initialize the Registration Page object
+        registrationPage = new RegistrationBuyerForm(driver);
+    }
+
+    @Test
+    public void testBuyerRegistration() {
+        // Wait for the 'Buyer' radio button to be clickable and select it
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(registrationPage.buyerRadio));
+        registrationPage.selectBuyerRole();
+
+        // Fill in the registration form
+        registrationPage.enterFullName("John Doe");
+        registrationPage.enterEmail("john.doe@example.com");
+        registrationPage.enterPassword("YourPassword123");
+        registrationPage.confirmPassword("YourPassword123");
+        registrationPage.enterPhone("1234567890");
+        registrationPage.acceptAgreement();
+
+        // Submit the form
+        registrationPage.submitForm();
+
+        try {
+            // Wait for error message (if email is already taken)
+            WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@class='Toastify__toast-body' and contains(text(),'The email has already been taken.')]")
+            ));
+            System.out.println("Error: " + errorMessage.getText());
+        } catch (Exception e) {
+            // No error message found, form submitted successfully
+            System.out.println("Form submitted successfully!");
+        }
+    }
+
+    @After
+    public void tearDown() {
+        super.tearDown(); // Quit WebDriver
+    }
+}
