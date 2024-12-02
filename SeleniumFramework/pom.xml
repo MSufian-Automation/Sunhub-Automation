@@ -3,7 +3,11 @@
     <groupId>SeleniumFramework</groupId>
     <artifactId>SeleniumFramework</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    
+     <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>4.6.0</version>
+    </dependency>
     <dependencies>
         <!-- TestNG -->
         <dependency>
