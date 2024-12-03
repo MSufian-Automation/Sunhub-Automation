@@ -33,4 +33,4 @@ jobs:
         run: |
           cd SeleniumFramework  # Navigate to the directory containing the `pom.xml` file
           mvn clean test -B -Dtest=Complete_Registartion_login_Form  # Run only the specific test file in batch mode
-          cat target/surefire-reports/*.txt  # Output test results to the console
+          cat target/surefire-reports/result123.txt  # Output test results to the console
