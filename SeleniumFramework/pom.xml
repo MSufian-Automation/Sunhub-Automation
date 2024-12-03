@@ -54,6 +54,16 @@
 
     <build>
         <plugins>
+                 <!-- Maven Compiler Plugin to set source and target Java version -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>  <!-- Set source Java version -->
+                    <target>11</target>  <!-- Set target Java version -->
+                </configuration>
+            </plugin>
             <!-- Maven Surefire Plugin to run tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -65,15 +75,6 @@
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
-                 <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.1</version>
-            <configuration>
-                <source>11</source> <!-- Set this to the minimum required version -->
-                <target>11</target> <!-- Set this to the minimum required version -->
-            </configuration>
-        </plugin>
 
             <!-- Maven Jar Plugin to package the tests -->
             <plugin>
