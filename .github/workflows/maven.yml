@@ -17,37 +17,37 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Set up Java JDK
+      # Set up Java JDK 11
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
           java-version: '11'
 
-      # # Cache Maven dependencies
-      # - name: Cache Maven dependencies
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ~/.m2/repository
-      #     key: ${{ runner.os }}-maven-${{ hashFiles('SeleniumFramework/pom.xml') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-maven-
-
       # Print working directory to verify where the runner is
       - name: Print working directory
-        run: echo "Current working directory:$(pwd)"
+        run: echo "Current working directory: $(pwd)"
 
       # List all files to verify the location of pom.xml
       - name: List files
         run: ls -R
 
-      # Change directory to the folder containing the pom.xml (SeleniumFramework)
-      # - name: Change directory to SeleniumFramework
-      #   run: cd SeleniumFramework
+      # Cache Maven dependencies to speed up build process
+      - name: Cache Maven dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('SeleniumFramework/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
-      # # Install dependencies and run tests using Maven
-      # - name: Build and Test with Maven
-      #   run: mvn clean install -f SeleniumFramework/pom.xml
+      # Change directory to SeleniumFramework (if pom.xml is there)
+      - name: Change directory to SeleniumFramework
+        run: cd SeleniumFramework && pwd
 
-      # # Run TestNG tests
-      # - name: Run TestNG Tests
-      #   run: mvn test -f SeleniumFramework/pom.xml
+      # Install dependencies and run tests using Maven
+      - name: Build and Test with Maven
+        run: mvn clean install -f SeleniumFramework/pom.xml
+
+      # Run TestNG tests
+      - name: Run TestNG Tests
+        run: mvn test -f SeleniumFramework/pom.xml
