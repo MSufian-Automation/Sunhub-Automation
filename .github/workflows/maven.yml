@@ -1,12 +1,23 @@
-name: Print Working Directory
+name: Build and Test with Maven
 
-on: [push]
+on: [push]  # The workflow triggers on a push event to the repository
 
 jobs:
-  print-directory:
-    runs-on: ubuntu-latest
+  maven-build:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner for this job
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Print working directory
-        run: echo "Current Working Directory:$(ls -R)"
+        uses: actions/checkout@v2  # Checkout your repository
+
+      - name: Set up Java JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'  # Specify the Java version to use (you can change this to match your project requirements)
+          distribution: 'adoptopenjdk'  # Use AdoptOpenJDK, or change it to your preferred distribution
+
+      - name: Install dependencies and run tests
+        run: mvn clean install  # Run Maven to clean, install dependencies, and run tests
+
+      - name: Print working directory (optional)
+        run: echo "Current Working Directory:$(ls -R)"  # List directory structure (optional)
