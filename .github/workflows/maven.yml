@@ -17,8 +17,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Print current directory
-        run: pwd  # Change to 'cd' if using a Windows runner
+      # - name: Print current directory
+      #   run: pwd  # Change to 'cd' if using a Windows runner
 
       
       # Set up Java JDK
@@ -33,7 +33,7 @@ jobs:
       - name: Print current directory
         
         with:
-          run: pwd  # Change to 'cd' if using a Windows runner
+          # run: pwd  # Change to 'cd' if using a Windows runner
           path: /home/runner/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('SeleniumFramework/pom.xml') }}
           restore-keys: |
