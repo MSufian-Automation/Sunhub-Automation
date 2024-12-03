@@ -19,8 +19,11 @@ jobs:
       - name: Set up Java JDK 11
         uses: actions/setup-java@v3
         with:
-          java-version: '11'  # Specify the Java version to use (you can change this to match your project requirements)
-          distribution: 'temurin'  # Use Adoptium distribution for JDK 11
+          java-version: '11'  # Specify the Java version to use
+          distribution: 'temurin'  # Correct distribution for JDK 11 from Adoptium
+
+      - name: Navigate to the correct directory
+        run: cd SeleniumFramework/pom.xml  # Change directory to the folder containing your pom.xml
 
       - name: Install dependencies and run tests
         run: mvn clean install  # Run Maven to clean, install dependencies, and run tests
