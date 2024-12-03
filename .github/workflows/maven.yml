@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  maven-build:
+  selenium-tests:
     runs-on: ubuntu-latest  # Use the latest Ubuntu runner for this job
 
     steps:
@@ -20,12 +20,17 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'  # Specify the Java version to use
-          distribution: 'temurin'  # Correct distribution for JDK 11 from Adoptium
+          distribution: 'temurin'  # Correct JDK distribution
 
-      - name: Install dependencies and run tests
+      - name: Set up Chrome Driver
+        uses: actions/checkout@v2  # Checkout your repository
         run: |
-          cd SeleniumFramework  # Navigate into the SeleniumFramework directory
-          mvn clean install  # Run Maven to clean, install dependencies, and run tests from within the correct directory
-
-      - name: Print working directory (optional)
-        run: echo "Current Working Directory:$(ls -R)"  # List directory structure (optional)
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+          wget -N https://chromedriver.storage.googleapis.com/116.0.5845.96/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip
+          
+      - name: Install dependencies and run Selenium tests
+        run: |
+          cd SeleniumFramework  # Navigate to the directory containing the `pom.xml` file
+          mvn test  # Run Selenium test cases as specified in your test files
