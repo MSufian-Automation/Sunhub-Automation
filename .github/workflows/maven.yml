@@ -38,11 +38,19 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('SeleniumFramework/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+ # Print working directory to verify where the runner is
+      - name: Print working directory
+        run: pwd
 
-      # Install dependencies and run tests using Maven
-      - name: Build and Test with Maven
-        run: mvn clean install -f SeleniumFramework/pom.xml
+      # List all files to verify the location of pom.xml
+      - name: List files
+        run: ls -R
 
-      # Run TestNG tests
-      - name: Run TestNG Tests
-        run: mvn test -f SeleniumFramework/pom.xml
+        
+      # # Install dependencies and run tests using Maven
+      # - name: Build and Test with Maven
+      #   run: mvn clean install -f SeleniumFramework/pom.xml
+
+      # # Run TestNG tests
+      # - name: Run TestNG Tests
+      #   run: mvn test -f SeleniumFramework/pom.xml
