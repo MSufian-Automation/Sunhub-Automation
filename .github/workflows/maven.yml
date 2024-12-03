@@ -41,7 +41,7 @@ jobs:
 
       # Install dependencies and run tests using Maven
       - name: Build and Test with Maven
-        run: mvn clean install
+        run:  mvn clean install -f SeleniumFramework/pom.xml
 
       # Run TestNG tests
       - name: Run TestNG Tests
