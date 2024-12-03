@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout the repository
+    # Checkout the code from the repository
     - name: Checkout code
       uses: actions/checkout@v2
 
@@ -24,14 +24,13 @@ jobs:
         java-version: '11'
         distribution: 'adoptopenjdk'
 
-    # List directory contents (to debug path issues)
+    # List the files in the repository to debug path issues
     - name: List directory contents
       run: ls -R
 
-    # Run Maven build
+    # Run Maven build and tests
     - name: Build with Maven
       run: mvn clean install
 
-    # Run tests
     - name: Run tests with Maven
       run: mvn test
