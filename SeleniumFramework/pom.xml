@@ -65,6 +65,15 @@
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
+                 <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+                <source>11</source> <!-- Set this to the minimum required version -->
+                <target>11</target> <!-- Set this to the minimum required version -->
+            </configuration>
+        </plugin>
 
             <!-- Maven Jar Plugin to package the tests -->
             <plugin>
@@ -101,5 +110,6 @@
                 <version>3.0.0</version>
             </plugin>
         </plugins>
+             
     </build>
 </project>
