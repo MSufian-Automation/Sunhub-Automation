@@ -40,7 +40,7 @@ jobs:
             ${{ runner.os }}-maven-
  # Print working directory to verify where the runner is
       - name: Print working directory
-        run: echo "Automation testing Current working directory:$(pwd)"
+        run: echo "Automation test Current working directory:$(pwd)"
 
       # List all files to verify the location of pom.xml
       - name: List files
