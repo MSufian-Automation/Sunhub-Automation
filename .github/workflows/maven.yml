@@ -1,4 +1,4 @@
-name: Run Specific Selenium Test
+name: Run Selenium Test with Results in Console
 
 on:
   push:
@@ -32,4 +32,5 @@ jobs:
       - name: Run specific Selenium test
         run: |
           cd SeleniumFramework  # Navigate to the directory containing the `pom.xml` file
-          mvn clean test -Dtest=Complete_Registartion_login_Form  # Run only the specific test file
+          mvn clean test -B -Dtest=Complete_Registartion_login_Form  # Run only the specific test file in batch mode
+          cat target/surefire-reports/*.txt  # Output test results to the console
