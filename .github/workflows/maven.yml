@@ -14,7 +14,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'  # Specify the Java version to use (you can change this to match your project requirements
-
+          distribution: 'adoptium'  # Use Adoptium for JDK distribution
       - name: Install dependencies and run tests
         run: mvn clean install  # Run Maven to clean, install dependencies, and run tests
 
