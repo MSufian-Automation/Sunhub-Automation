@@ -34,7 +34,7 @@ jobs:
         
         with:
           # run: pwd  # Change to 'cd' if using a Windows runner
-          path: /home/runner/.m2/repository
+          path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('SeleniumFramework/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
