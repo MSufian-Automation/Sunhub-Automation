@@ -23,7 +23,7 @@ jobs:
           distribution: 'temurin'  # Correct distribution for JDK 11 from Adoptium
 
       - name: Navigate to the correct directory
-        run: cd SeleniumFramework  # Change directory to the folder containing your pom.xml
+        run: cd /home/runner/work/Sunhub-Automation/Sunhub-Automation/SeleniumFramework  # Change directory to the folder containing your pom.xml
 
       - name: Install dependencies and run tests
         run: mvn clean install  # Run Maven to clean, install dependencies, and run tests
