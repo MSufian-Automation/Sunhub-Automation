@@ -1,48 +1,12 @@
-name: Maven Selenium Tests
+name: Print Working Directory
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: [push]
 
 jobs:
-  build:
+  print-directory:
     runs-on: ubuntu-latest
-
     steps:
-      # Checkout the code from the repository
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
-
-      # Print working directory to verify where the runner is
       - name: Print working directory
-        run: |
-          echo "Current working directory: $(pwd)"
-        
-      # List all files to verify the location of pom.xml
-      - name: List files
-        run: ls -R
-
-      # Cache Maven dependencies to speed up build process
-      # - name: Cache Maven dependencies
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ~/.m2/repository
-      #     key: ${{ runner.os }}-maven-${{ hashFiles('SeleniumFramework/pom.xml') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-maven-
-
-      # Change directory to SeleniumFramework (if pom.xml is there)
-      # - name: Change directory to SeleniumFramework
-      #   run: cd SeleniumFramework && pwd
-
-      # # Install dependencies and run tests using Maven
-      # - name: Build and Test with Maven
-      #   run: mvn clean install -f SeleniumFramework/pom.xml
-
-      # # Run TestNG tests
-      # - name: Run TestNG Tests
-      #   run: mvn test -f SeleniumFramework/pom.xml
+        run: echo "Current Working Directory:$(pwd)"
