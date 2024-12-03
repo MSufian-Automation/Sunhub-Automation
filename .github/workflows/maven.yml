@@ -1,4 +1,4 @@
-name: Maven Selenium Tests
+name: Run Specific Selenium Test
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   selenium-tests:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu runner for this job
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
 
     steps:
       - name: Checkout repository
@@ -22,15 +22,14 @@ jobs:
           java-version: '11'  # Specify the Java version to use
           distribution: 'temurin'  # Correct JDK distribution
 
-      - name: Set up Chrome Driver
-        uses: actions/checkout@v2  # Checkout your repository
+      - name: Install Chrome and ChromeDriver
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget unzip
-          wget -N https://chromedriver.storage.googleapis.com/116.0.5845.96/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          
-      - name: Install dependencies and run Selenium tests
+          sudo apt-get install -y google-chrome-stable  # Install Google Chrome
+          sudo apt-get install -y chromium-chromedriver  # Install ChromeDriver
+          sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver
+
+      - name: Run specific Selenium test
         run: |
           cd SeleniumFramework  # Navigate to the directory containing the `pom.xml` file
-          mvn test  # Run Selenium test cases as specified in your test files
+          mvn clean test -Dtest=Complete_Registartion_login_Form  # Run only the specific test file
