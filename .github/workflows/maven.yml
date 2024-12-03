@@ -11,46 +11,43 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
       # Checkout the code from the repository
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: Print current directory
-      #   run: pwd  # Change to 'cd' if using a Windows runner
-
-      
       # Set up Java JDK
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
           java-version: '11'
 
-      # Cache Maven dependencies to speed up the build process
+      # Cache Maven dependencies
       - name: Cache Maven dependencies
         uses: actions/cache@v2
-      - name: Print current directory
-        
         with:
-          # run: pwd  # Change to 'cd' if using a Windows runner
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('SeleniumFramework/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
- # Print working directory to verify where the runner is
+
+      # Print working directory to verify where the runner is
       - name: Print working directory
-        run: echo "Automation test Current working directory:$(pwd)"
+        run: echo "Current working directory: $(pwd)"
 
       # List all files to verify the location of pom.xml
       - name: List files
         run: ls -R
 
-        
-      # # Install dependencies and run tests using Maven
-      # - name: Build and Test with Maven
-      #   run: mvn clean install -f SeleniumFramework/pom.xml
+      # Change directory to the folder containing the pom.xml (SeleniumFramework)
+      - name: Change directory to SeleniumFramework
+        run: cd SeleniumFramework
 
-      # # Run TestNG tests
-      # - name: Run TestNG Tests
-      #   run: mvn test -f SeleniumFramework/pom.xml
+      # Install dependencies and run tests using Maven
+      - name: Build and Test with Maven
+        run: mvn clean install -f SeleniumFramework/pom.xml
+
+      # Run TestNG tests
+      - name: Run TestNG Tests
+        run: mvn test -f SeleniumFramework/pom.xml
