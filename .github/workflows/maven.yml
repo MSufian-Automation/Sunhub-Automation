@@ -10,12 +10,16 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     
     steps:
       # Checkout the code from the repository
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Print current directory
+        run: pwd  # Change to 'cd' if using a Windows runner
+
       
       # Set up Java JDK
       - name: Set up JDK 11
@@ -26,7 +30,10 @@ jobs:
       # Cache Maven dependencies to speed up the build process
       - name: Cache Maven dependencies
         uses: actions/cache@v2
+      - name: Print current directory
+        
         with:
+          run: pwd  # Change to 'cd' if using a Windows runner
           path: C:\Users\RunnerAdmin\.m2\repository
           key: ${{ runner.os }}-maven-${{ hashFiles('SeleniumFramework/pom.xml') }}
           restore-keys: |
