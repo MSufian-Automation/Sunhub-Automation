@@ -8,8 +8,8 @@ on:
     branches:
       - main  # Trigger on pull request to the main branch
   schedule:
-    - cron: '0 12 * * *'  # Run daily at 12 PM UTC
-    - cron: '0 13 * * *'  # Run daily at 1 PM UTC
+- cron: '15 13 * * *'  # Run daily at 1:15 PM UTC (6:15 PM PKT)
+- cron: '15 14 * * *'  # Run daily at 2:15 PM UTC (7:15 PM PKT)
 
 jobs:
   selenium-tests:
