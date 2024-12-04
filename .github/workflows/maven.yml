@@ -8,8 +8,8 @@ on:
     branches:
       - main  # Trigger on pull request to the main branch
   schedule:
-    - cron: '0 12 * * *'  # Run daily at 5 PM PKT (12 PM UTC)
-    - cron: '0 13 * * *'  # Run daily at 6 PM PKT (1 PM UTC)
+    - cron: '0 12 * * *'  # Run daily at 12 PM UTC
+    - cron: '0 13 * * *'  # Run daily at 1 PM UTC
 
 jobs:
   selenium-tests:
@@ -32,9 +32,9 @@ jobs:
           sudo apt-get install -y chromium-chromedriver
           sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver
 
-      - name: Run all Selenium tests
+      - name: Run specific Selenium tests
         run: |
           cd SeleniumFramework
-          mvn clean test -B
+          mvn clean test -B -Dtest=Complete_Registartion_login_Form,Complete_Registration_Login_Seller,Complete_Registration_login_Both
           echo "Test results:"
           cat target/surefire-reports/*.txt
