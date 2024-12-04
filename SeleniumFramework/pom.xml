@@ -17,11 +17,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-    <version>4.13.2</version>
-    <scope>test</scope>
-</dependency>     
+       
 
         <!-- Selenium for WebDriver -->
         <dependency>
@@ -48,6 +44,11 @@
             <artifactId>webdrivermanager</artifactId>
             <version>5.5.3</version>
         </dependency>
+                 <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.13.2</version>
+    <scope>test</scope>
+</dependency>  
     </dependencies>
 
     <build>
